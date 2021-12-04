@@ -4,9 +4,27 @@ import axios from 'axios';
 function App() {
   //Pegando localização do usuário com hook do state location;
   const [location, setLocation] = useState(false);
+  //Criado novo state para guardar os dados que veem da API
+  const [weather, setWeather] = useState(false);
+
+  //Incluido 'function expression': responsável por chamar a API
+  let getWeather = async (lat, long) => {
+    let res = await axios.get(
+      'http://api.openweathermap.org/data/2.5/weather',
+      {
+        params: {
+          lat: lat,
+          lon: long,
+          appid: process.env.REACT_APP_OPEN_WHEATHER_KEY,
+          lang: 'pt',
+          units: 'metric',
+        },
+      }
+    );
+    setWeather(res.data);
+  };
 
   // Será executado assim que o app for montado e sempre que muda algo, ele é chamado novamente.
-
   useEffect(() => {
     //código que pega as coordenadas do usuário, pedindo para o Browser
     navigator.geolocation.getCurrentPosition((position) => {
