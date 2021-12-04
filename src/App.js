@@ -28,7 +28,9 @@ function App() {
   useEffect(() => {
     //código que pega as coordenadas do usuário, pedindo para o Browser
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords.longitude, position.coords.latitude);
+      // console.log(position.coords.longitude, position.coords.latitude);
+      getWeather(position.coords.longitude, position.coords.latitude);
+
       setLocation(true);
     });
   }, []);
